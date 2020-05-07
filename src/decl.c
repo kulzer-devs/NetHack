@@ -413,7 +413,7 @@ const struct instance_globals g_init = {
     DUMMY, /* warnsyms */
 
     /* dungeon.c */
-    UNDEFINED_VALUE, /* n_dgns */
+    0, /* n_dgns */
     NULL, /* branches */
     NULL, /* mapseenchn */
 
@@ -478,6 +478,7 @@ const struct instance_globals g_init = {
     UNDEFINED_VALUE, /* mhitu_dieroll */
 
     /* mklev.c */
+    UNDEFINED_VALUES, /* luathemes[] */
     UNDEFINED_VALUE, /* vault_x */
     UNDEFINED_VALUE, /* vault_y */
     UNDEFINED_VALUE, /* made_branch */
@@ -638,6 +639,8 @@ const struct instance_globals g_init = {
     UNDEFINED_VALUE, /* ystart */
     UNDEFINED_VALUE, /* xsize */
     UNDEFINED_VALUE, /* ysize */
+    FALSE, /* in_mk_themerooms */
+    FALSE, /* themeroom_failed */
 
     /* spells.c */
     0, /* spl_sortmode */

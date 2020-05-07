@@ -336,7 +336,7 @@ register struct monst *mtmp;
      * you'll usually just swap places if this is a movement command
      */
     /* Intelligent chaotic weapons (Stormbringer) want blood */
-    if (is_safepet(mtmp) && !g.context.forcefight) {
+    if (is_safemon(mtmp) && !g.context.forcefight) {
         if (!uwep || uwep->oartifact != ART_STORMBRINGER) {
             /* There are some additional considerations: this won't work
              * if in a shop or Punished or you miss a random roll or
@@ -808,6 +808,9 @@ int dieroll;
 
                 if (obj->oartifact
                     && artifact_hit(&g.youmonst, mon, obj, &tmp, dieroll)) {
+                    /* artifact_hit updates 'tmp' but doesn't inflict any
+                       damage; however, it might cause carried items to be
+                       destroyed and they might do so */
                     if (DEADMONSTER(mon)) /* artifact killed monster */
                         return FALSE;
                     if (tmp == 0)
@@ -2007,6 +2010,10 @@ int specialdmg; /* blessed and/or silver bonus against various things */
                 pline("%s looks confused.", Monnam(mdef));
             mdef->mconf = 1;
         }
+        break;
+    case AD_POLY:
+        if (!negated && tmp < mdef->mhp)
+            tmp = mon_poly(&g.youmonst, mdef, tmp);
         break;
     default:
         tmp = 0;

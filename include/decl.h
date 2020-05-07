@@ -323,9 +323,6 @@ E struct tc_gbl_data {   /* also declared in tcap.h */
 #define CO g.tc_gbl_data.tc_CO
 #endif
 
-/* xxxexplain[] is in drawing.c */
-E const char *const monexplain[], invisexplain[], *const oclass_names[];
-
 /* Some systems want to use full pathnames for some subsets of file names,
  * rather than assuming that they're all in the current directory.  This
  * provides all the subclasses that seem reasonable, and sets up for all
@@ -713,7 +710,7 @@ struct instance_globals {
     const char *hname; /* name of the game (argv[0] of main) */
     int hackpid; /* current process id */
     char chosen_windowtype[WINTYPELEN];
-    int bases[MAXOCLASSES];
+    int bases[MAXOCLASSES + 1];
     int multi;
     const char *multi_reason;
     int nroom;
@@ -949,6 +946,7 @@ struct instance_globals {
     int mhitu_dieroll;
 
     /* mklev.c */
+    genericptr_t luathemes[MAXDUNGEON];
     xchar vault_x;
     xchar vault_y;
     boolean made_branch; /* used only during level creation */
@@ -1136,6 +1134,8 @@ struct instance_globals {
     struct sp_coder *coder;
     xchar xstart, ystart;
     xchar xsize, ysize;
+    boolean in_mk_themerooms;
+    boolean themeroom_failed;
 
     /* spells.c */
     int spl_sortmode;   /* index into spl_sortchoices[] */
